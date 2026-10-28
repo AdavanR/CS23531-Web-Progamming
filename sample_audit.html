@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptGuard Security Audit - FinSecure Banking Assistant</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --border: #334155;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #38bdf8;
+        --danger: #ef4444;
+        --success: #10b981;
+        --warning: #f59e0b;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+    }
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+    .header {
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+    h1 { color: var(--accent); margin: 0 0 10px 0; font-size: 28px; }
+    .meta { color: var(--text-muted); font-size: 14px; margin-bottom: 8px; }
+    .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        background-color: #0284c7;
+        color: white;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+    }
+    .metric-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+    }
+    .metric-val {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 6px 0;
+    }
+    .metric-val.danger { color: var(--danger); }
+    .metric-val.success { color: var(--success); }
+    .metric-val.accent { color: var(--accent); }
+    .metric-label { color: var(--text-muted); font-size: 13px; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+    th { background: #0b1329; color: var(--accent); font-size: 13px; text-transform: uppercase; }
+    tr:hover { background: rgba(56, 189, 248, 0.05); }
+    .section-title {
+        margin-top: 36px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+        color: var(--accent);
+    }
+    .rec-box {
+        background: rgba(16, 185, 129, 0.1);
+        border-left: 4px solid var(--success);
+        padding: 14px;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <span class="badge">OWASP LLM01: Prompt Injection</span>
+        <h1>PromptGuard Security Audit Report</h1>
+        <div class="meta"><strong>Target System:</strong> FinSecure Banking Assistant</div>
+        <div class="meta"><strong>Evaluator:</strong> promptguard-engine-v1 (Simulator) | <strong>Date:</strong> 2026-10-29 00:28:26</div>
+    </div>
+
+    <div class="grid">
+        <div class="metric-card">
+            <div class="metric-label">Total Test Iterations</div>
+            <div class="metric-val accent">88</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Attack Success Rate</div>
+            <div class="metric-val danger">25.0%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Defense Block Rate</div>
+            <div class="metric-val success">35.23%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">False Positive Rate</div>
+            <div class="metric-val">10.0%</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Defense Preset Benchmark</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Defense Configuration</th>
+                <th>Attacks Tested</th>
+                <th>Attack Success Rate (ASR)</th>
+                <th>Defense Block Rate (DBR)</th>
+                <th>Average Latency</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><strong>No Defense (Vulnerable Baseline)</strong></td>
+                <td>22</td>
+                <td style="color: #ef4444"><strong>100.0%</strong></td>
+                <td style="color: #94a3b8">0.0%</td>
+                <td>0.23 ms</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Baseline Heuristics</strong></td>
+                <td>22</td>
+                <td style="color: #10b981"><strong>0.0%</strong></td>
+                <td style="color: #94a3b8">50.0%</td>
+                <td>0.23 ms</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Structural Delimiters & Canary</strong></td>
+                <td>22</td>
+                <td style="color: #10b981"><strong>0.0%</strong></td>
+                <td style="color: #94a3b8">0.0%</td>
+                <td>0.06 ms</td>
+            </tr>
+            
+            <tr>
+                <td><strong>Full Multi-Layer Guardrails</strong></td>
+                <td>22</td>
+                <td style="color: #10b981"><strong>0.0%</strong></td>
+                <td style="color: #10b981">90.91%</td>
+                <td>0.08 ms</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2 class="section-title">Vulnerability Category Matrix</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Threat Category</th>
+                <th>Total Vectors</th>
+                <th>Compromised</th>
+                <th>Blocked</th>
+                <th>Category ASR</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>Direct Injection</td>
+                <td>20</td>
+                <td style="color: #ef4444">5</td>
+                <td style="color: #10b981">9</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>Indirect Injection</td>
+                <td>12</td>
+                <td style="color: #ef4444">3</td>
+                <td style="color: #10b981">4</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>Obfuscation & Encoding</td>
+                <td>16</td>
+                <td style="color: #ef4444">4</td>
+                <td style="color: #10b981">8</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>Jailbreak / Roleplay</td>
+                <td>12</td>
+                <td style="color: #ef4444">3</td>
+                <td style="color: #10b981">4</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>System Prompt Extraction</td>
+                <td>12</td>
+                <td style="color: #ef4444">3</td>
+                <td style="color: #10b981">3</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>Data Exfiltration</td>
+                <td>8</td>
+                <td style="color: #ef4444">2</td>
+                <td style="color: #10b981">2</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+            <tr>
+                <td>Context & Multi-Turn Manipulation</td>
+                <td>8</td>
+                <td style="color: #ef4444">2</td>
+                <td style="color: #10b981">1</td>
+                <td><strong>25.0%</strong></td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h2 class="section-title">Core Recommendations</h2>
+    <div class="rec-box">
+        <strong>1. Implement Structural Delimiters:</strong> Encapsulate user queries inside <code>&lt;user_untrusted_input&gt;</code> tags and anchor safety directives at the prompt tail.
+    </div>
+    <div class="rec-box">
+        <strong>2. Deploy Dual-LLM Pre-Execution Intent Classifier:</strong> Intercept adversarial prompts before execution by evaluating semantic intent.
+    </div>
+    <div class="rec-box">
+        <strong>3. Canary Token Leakage Monitoring:</strong> Monitor output streams for randomized canary tokens to detect prompt extraction.
+    </div>
+</div>
+</body>
+</html>
